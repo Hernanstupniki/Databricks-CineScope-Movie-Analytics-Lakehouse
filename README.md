@@ -58,23 +58,23 @@ Three independent SQL views expose the warehouse at the grain each analysis need
 
 **Editable projects** · [English PBIP](powerbi/en/movie-analytics-dashboard.pbip) · [Spanish PBIP](powerbi/es/movie-analytics-dashboard.pbip)
 
-The report has three pages and seven charts. The release-year interval and budget tier are synchronized across all pages. The screenshots show the English edition with the full period selected.
+The report has three pages and seven charts. The release-year interval and budget tier are synchronized across all pages. The screenshots show the English edition with the full period selected. The [Spanish edition screenshots](docs/images/es/) are also available.
 
 ### Overview and trends
 
-![Power BI overview with three KPIs and the 2× success rate by release decade](docs/images/overview-and-trends.png)
+![Power BI overview with three KPIs and the 2× success rate by release decade](docs/images/en/overview-and-trends.png)
 
 The 2× success rate was **31.7% in the 2000s** and **38.0% in the 2010s**, across 2,009 and 1,417 eligible films. The 1950s reached 92.3% across 26 films. Cohort sizes help producers choose relevant comparison periods and judge how much weight to give an unusually high rate.
 
 ### Investment opportunities
 
-![Power BI genre rankings and genre-by-budget success matrix](docs/images/investment-opportunities.png)
+![Power BI genre rankings and genre-by-budget success matrix](docs/images/en/investment-opportunities.png)
 
 Adventure reached 2× in **48.1% of 773 films** and **71.3% of 202 films** in the very-high-budget tier. At a medium budget, Horror provides a different comparison at **58.5% across 195 films**. The matrix requires at least 20 eligible films per cell, giving producers a way to shortlist projects within the budget they can actually fund.
 
 ### Performance and production companies
 
-![Power BI budget-to-gross scatter plot, median multiples by budget tier, and top ten production companies](docs/images/performance-and-companies.png)
+![Power BI budget-to-gross scatter plot, median multiples by budget tier, and top ten production companies](docs/images/en/performance-and-companies.png)
 
 The median multiple ranges from **1.30× for low-budget films** to **2.68× for very-high-budget films**. The scatter plot illustrates why a producer still needs downside scenarios. *Avatar* and *The Lone Ranger* had budgets of $237 million and $255 million, but grossed about $2.79 billion and $89 million, respectively.
 
@@ -118,4 +118,4 @@ Git contains the editable report and model definitions. The local Import cache a
 | [`includes/`](includes/) and [`schemas/`](schemas/) | Shared notebook configuration and schema setup |
 | [`powerbi/`](powerbi/) | English and Spanish editable Power BI projects |
 | [`docs/architecture/`](docs/architecture/) | Architecture diagram in draw.io, SVG, and PNG formats |
-| [`docs/images/`](docs/images/) | Power BI screenshots |
+| [`docs/images/`](docs/images/) | Power BI screenshots in [English](docs/images/en/) and [Spanish](docs/images/es/) |
