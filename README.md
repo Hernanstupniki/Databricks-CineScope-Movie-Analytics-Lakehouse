@@ -58,27 +58,43 @@ Three independent SQL views expose the warehouse at the grain each analysis need
 
 **Editable projects** · [English PBIP](powerbi/en/movie-analytics-dashboard.pbip) · [Spanish PBIP](powerbi/es/movie-analytics-dashboard.pbip)
 
+CineScope helps a production company decide which projects move on to financial evaluation, how much capital to expose, and which partners to approach. A team with a medium budget, for example, can start from the track record of Horror, look up comparable films, and build scenarios before approving the spend.
+
 The report has three pages and seven charts. The release-year interval and budget tier are synchronized across all pages. The screenshots show the English edition with the full period selected. The [Spanish edition screenshots](docs/images/es/) are also available.
+
+Across the full period, the reference is **4,725 films**, a **37.1%** 2× success rate, and a **1.30×** median gross multiple.
 
 ### Overview and trends
 
 ![Power BI overview with three KPIs and the 2× success rate by release decade](docs/images/en/overview-and-trends.png)
 
-The 2× success rate was **31.7% in the 2000s** and **38.0% in the 2010s**, across 2,009 and 1,417 eligible films. The 1950s reached 92.3% across 26 films. Cohort sizes help producers choose relevant comparison periods and judge how much weight to give an unusually high rate.
+| Chart | Question it answers | What the data shows | How a producer uses it |
+| --- | --- | --- | --- |
+| **Commercial success by release decade** | How often did films reach 2× in each period? | The rate was **31.7% in the 2000s** and **38.0% in the 2010s**, across 2,009 and 1,417 eligible films. The 1950s reached 92.3% with only 26 films. | Pick comparison periods that match a current release, and keep a decade with few films from dominating a revenue projection. |
 
 ### Investment opportunities
 
 ![Power BI genre rankings and genre-by-budget success matrix](docs/images/en/investment-opportunities.png)
 
-Adventure reached 2× in **48.1% of 773 films** and **71.3% of 202 films** in the very-high-budget tier. At a medium budget, Horror provides a different comparison at **58.5% across 195 films**. The matrix requires at least 20 eligible films per cell, giving producers a way to shortlist projects within the budget they can actually fund.
+| Chart | Question it answers | What the data shows | How a producer uses it |
+| --- | --- | --- | --- |
+| **Median gross multiple by genre** | Which genres returned the most gross per budget dollar? | Adventure led with **1.91×**, followed by Animation at 1.89× and Fantasy at 1.77×. Drama stood at 1.30×. | Prioritize which projects deserve development and a detailed financial evaluation before committing capital. |
+| **Films reaching 2× by genre** | In which genres did films reach 2× most often? | Adventure reached 2× in **48.1% of 773 films** and Animation in 47.8% of 224. Drama reached it in 31.5%. | Use the historical frequency to build scenarios and decide how much capital to concentrate in one genre. |
+| **2× success rate by genre and budget tier** | Which genres are worth evaluating at the budget we can fund? | At a very high budget, Animation reached **73.8% across 61 films** and Adventure **71.3% across 202**. At a medium budget, Horror reached **58.5% across 195**. Cells with fewer than 20 eligible films hide the rate, such as very-high-budget Horror with 6 films. | Shortlist projects that fit the available capital. This is the most direct chart for that decision. |
 
 ### Performance and production companies
 
 ![Power BI budget-to-gross scatter plot, median multiples by budget tier, and top ten production companies](docs/images/en/performance-and-companies.png)
 
-The median multiple ranges from **1.30× for low-budget films** to **2.68× for very-high-budget films**. The scatter plot illustrates why a producer still needs downside scenarios. *Avatar* and *The Lone Ranger* had budgets of $237 million and $255 million, but grossed about $2.79 billion and $89 million, respectively.
+| Chart | Question it answers | What the data shows | How a producer uses it |
+| --- | --- | --- | --- |
+| **Budget and gross revenue by film** | How much can gross revenue vary between films with similar budgets? | *Avatar* cost $237 million and grossed about $2.79 billion. *The Lone Ranger* cost $255 million and grossed about $89 million. | Choose comparable films, size the capital exposed in a downside scenario, and judge whether a co-production should share that risk. |
+| **Median gross multiple by budget tier** | Which budget tier had the highest typical multiple? | The median was **1.30×** for low, 1.73× for medium, 1.86× for high, and **2.68×** for very high budgets. The very-high tier holds 320 films, compared with 2,002 in the low tier. | Discuss a budget ceiling and the gross a project would need to justify it, since the best multiple also requires the most capital per film. |
+| **Top 10 production companies by 2× success rate** | Which partners have a track record that merits a conversation? | **Eon Productions** reached 2× in 21 of 22 eligible films (95.5%). Blumhouse Productions did so in 19 of 22 (86.4%), with a median multiple of 18.35×. **Twentieth Century Fox Film Corporation** reached it in 64.9% of 222 films. Companies need at least 20 eligible films. | Focus the partner search and negotiate from comparable track records, after applying the budget filter. |
 
-The company ranking helps screen potential partners. **Eon Productions** reached 2× in 21 of 22 eligible films, while **Twentieth Century Fox Film Corporation** reached it in 64.9% of 222 films. Comparing rates and sample sizes provides a starting point for due diligence before committing capital or sharing it with a co-producer.
+### From track record to money
+
+The financial benefit can come from dropping weak projects earlier, adjusting budgets before they are committed, and sharing risk with a suitable partner. The dashboard measures gross revenue against production budget. To estimate break-even and expected profit for a specific film, the next step is to model how much of the gross reaches the producer after exhibitor and distributor splits, marketing, and other costs.
 
 ## Configuration and execution
 
