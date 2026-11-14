@@ -1,0 +1,21 @@
+model Model
+	culture: es-AR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-AR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["mart_genre_performance","mart_company_performance","mart_movie_performance"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table mart_genre_performance
+ref table mart_company_performance
+ref table mart_movie_performance
+
+ref cultureInfo es-US
+ref cultureInfo es-AR

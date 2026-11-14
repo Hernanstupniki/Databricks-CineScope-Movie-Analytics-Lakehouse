@@ -1,0 +1,81 @@
+{
+  "name": "Inversión cinematográfica",
+  "dataColors": [
+    "#13766C",
+    "#32618C",
+    "#55798B"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#142437",
+  "tableAccent": "#13766C",
+  "good": "#13766C",
+  "neutral": "#43586D",
+  "bad": "#A04340",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI",
+      "fontSize": 16,
+      "color": "#142437"
+    },
+    "header": {
+      "fontFace": "Segoe UI",
+      "fontSize": 13,
+      "color": "#142437"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 12,
+      "color": "#43586D"
+    },
+    "callout": {
+      "fontFace": "Segoe UI",
+      "fontSize": 30,
+      "color": "#142437"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 16,
+            "fontColor": {
+              "solid": {
+                "color": "#142437"
+              }
+            },
+            "bold": true
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#D6E0E9"
+              }
+            },
+            "radius": 9
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ]
+      }
+    }
+  }
+}

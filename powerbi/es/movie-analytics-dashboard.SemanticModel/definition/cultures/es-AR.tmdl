@@ -1,0 +1,479 @@
+cultureInfo es-AR
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "mart_genre_performance.year_release_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "year_release_date"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "mart_genre_performance.genre_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "genre_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Género": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_genre_performance.tasa_de_éxito_2x_géneros": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "Tasa de éxito 2x (géneros)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Éxito 2x": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_genre_performance.películas_géneros": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "Películas (géneros)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Películas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_genre_performance.películas_válidas_géneros": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "Películas válidas (géneros)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Películas válidas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_genre_performance.budget_range": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "budget_range"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Rango de presupuesto": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_genre_performance.tasa_2x_de_la_muestra": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "Tasa 2x de la muestra"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Éxito 2x": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_genre_performance.múltiplo_mediano_géneros": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_genre_performance",
+			          "ConceptualProperty": "Múltiplo mediano (géneros)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Múltiplo mediano": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.year_release_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "year_release_date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Año de estreno": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.movie_id": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "movie_id"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ID de película": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.budget_range": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "budget_range"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Rango de presupuesto": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.múltiplo_mediano_películas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "Múltiplo mediano (películas)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Múltiplo mediano": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.películas_películas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "Películas (películas)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Películas analizadas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Películas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.películas_válidas_películas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "Películas válidas (películas)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Películas válidas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_company_performance.year_release_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_company_performance",
+			          "ConceptualProperty": "year_release_date"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "mart_company_performance.company_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_company_performance",
+			          "ConceptualProperty": "company_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productora": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_company_performance.tasa_de_éxito_2x_productoras": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_company_performance",
+			          "ConceptualProperty": "Tasa de éxito 2x (productoras)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Éxito 2x": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_company_performance.películas_productoras": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_company_performance",
+			          "ConceptualProperty": "Películas (productoras)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Películas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_company_performance.películas_válidas_productoras": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_company_performance",
+			          "ConceptualProperty": "Películas válidas (productoras)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Películas válidas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_company_performance.múltiplo_mediano_productoras": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_company_performance",
+			          "ConceptualProperty": "Múltiplo mediano (productoras)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Múltiplo mediano": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.tasa_de_éxito_2x_películas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "Tasa de éxito 2x (películas)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Éxito 2x": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.decade": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "decade"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Década": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "mart_movie_performance.éxito_2x_por_década": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mart_movie_performance",
+			          "ConceptualProperty": "Éxito 2x por década"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Éxito 2x": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json

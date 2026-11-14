@@ -1,0 +1,211 @@
+table mart_movie_performance
+	lineageTag: f5799c15-f296-4519-aa53-6c61aa23f059
+
+	measure 'Películas (películas)' = DISTINCTCOUNTNOBLANK('mart_movie_performance'[movie_id])
+		formatString: #,0
+		lineageTag: 8f5860dc-7c88-441c-8fb4-c40d8d35cb63
+
+	/// Películas distintas con un indicador de éxito informado.
+	measure 'Películas válidas (películas)' = CALCULATE([Películas (películas)], KEEPFILTERS(NOT ISBLANK('mart_movie_performance'[reached_2x])))
+		formatString: #,0
+		lineageTag: 8d351d3e-5e32-4f6e-a45c-7446be8d68a5
+
+	/// Películas que alcanzaron 2x sobre películas con datos financieros válidos.
+	measure 'Tasa de éxito 2x (películas)' = DIVIDE(COALESCE(CALCULATE([Películas (películas)], KEEPFILTERS('mart_movie_performance'[reached_2x] == 1)), 0), [Películas válidas (películas)])
+		formatString: 0.0%
+		lineageTag: 4543f04f-7f95-44a1-be5e-3268b31f185c
+
+	/// Mediana del múltiplo calculado en Databricks, con una observación por película.
+	measure 'Múltiplo mediano (películas)' =
+			VAR PeliculasConMultiplo =
+			    CALCULATETABLE(
+			        VALUES('mart_movie_performance'[movie_id]),
+			        KEEPFILTERS(NOT ISBLANK('mart_movie_performance'[movie_id])),
+			        KEEPFILTERS(NOT ISBLANK('mart_movie_performance'[revenue_multiple]))
+			    )
+			RETURN
+			    MEDIANX(PeliculasConMultiplo, CALCULATE(MAX('mart_movie_performance'[revenue_multiple])))
+		formatString: 0.00"x"
+		lineageTag: be116cc0-9a81-43eb-8f88-f0b74e8c59a1
+
+	measure Título = SELECTEDVALUE('mart_movie_performance'[title])
+		lineageTag: 7e1353fe-c96c-491c-9ee5-8d278cd05f3f
+
+	measure Presupuesto = SELECTEDVALUE('mart_movie_performance'[budget])
+		formatString: "$" #,0
+		lineageTag: cb036a38-b716-4fea-9967-1ed40657aba1
+
+	measure 'Recaudación bruta' = SELECTEDVALUE('mart_movie_performance'[revenue])
+		formatString: "$" #,0
+		lineageTag: f53cef32-e1d3-407d-b4d9-d1e01eec56bd
+
+	measure 'Múltiplo individual' = SELECTEDVALUE('mart_movie_performance'[revenue_multiple])
+		formatString: 0.0"x"
+		lineageTag: 0a5c6465-9b25-4bf5-81e5-78513383ca93
+
+	measure 'Orden del rango' =
+			SWITCH(
+			    SELECTEDVALUE('mart_movie_performance'[budget_range]),
+			    "Bajo", 1, "Low", 1,
+			    "Medio", 2, "Medium", 2,
+			    "Alto", 3, "High", 3,
+			    "Muy alto", 4, "Very high", 4,
+			    5
+			)
+		formatString: 0
+		isHidden
+		lineageTag: 8a924da8-2375-43f7-8185-bd425418ae0c
+
+	/// Tasa de éxito para décadas con al menos 20 películas financieras válidas.
+	measure 'Éxito 2x por década' = IF([Películas válidas (películas)] >= 20, [Tasa de éxito 2x (películas)])
+		formatString: 0.0%
+		lineageTag: 788a9973-e98e-438a-919e-9cf998003798
+
+	column movie_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d106c501-1fe9-486f-bfa7-169cbbefdbf4
+		summarizeBy: sum
+		sourceColumn: movie_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 413b49f3-6d2c-4f98-9b6f-f7ce84ab432a
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_release_date
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2ffbe5d1-a0d0-4e15-9536-83924a03fbf7
+		summarizeBy: sum
+		sourceColumn: year_release_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 8ccc7c0b-b2fe-482e-ab40-9ac6422c56b9
+		summarizeBy: sum
+		sourceColumn: budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 840dc642-8b69-4c25-854c-3cd05e166bcb
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column popularity
+		dataType: double
+		sourceProviderType: double
+		lineageTag: d41e2177-5588-4478-b97e-381a834c7145
+		summarizeBy: sum
+		sourceColumn: popularity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vote_average
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 83445bbd-63da-4377-8f12-7430f2ca36bb
+		summarizeBy: sum
+		sourceColumn: vote_average
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vote_count
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c2311a07-e66e-4b6b-8918-ec3f04094cd7
+		summarizeBy: sum
+		sourceColumn: vote_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_multiple
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 63d32dee-add9-492b-908f-c48213afc1f0
+		summarizeBy: sum
+		sourceColumn: revenue_multiple
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reached_2x
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d7d5bc40-06e7-4e7c-94ce-40b2d0562cde
+		summarizeBy: sum
+		sourceColumn: reached_2x
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget_range
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: ae37dea5-1f61-4507-bb48-1390ae38c673
+		summarizeBy: none
+		sourceColumn: budget_range
+		sortByColumn: budget_range_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column decade
+		dataType: int64
+		formatString: 0
+		lineageTag: bbe107f7-2f08-4b80-ada7-1393bfc43b7d
+		summarizeBy: none
+		sourceColumn: decade
+
+	column budget_range_order
+		dataType: int64
+		isHidden
+		lineageTag: a294734c-d88e-4a92-b8b9-00f432e794c4
+		summarizeBy: none
+		sourceColumn: budget_range_order
+
+	partition mart_movie_performance = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("<databricks-server-hostname>", "<sql-warehouse-http-path>", [Catalog = "", Database = ""]),
+				    databricks_ws_Database = Origen{[Name="databricks_ws",Kind="Database"]}[Data],
+				    gold_Schema = databricks_ws_Database{[Name="gold",Kind="Schema"]}[Data],
+				    mart_movie_performance_View = gold_Schema{[Name="mart_movie_performance",Kind="View"]}[Data],
+				    Tipos = Table.TransformColumnTypes(mart_movie_performance_View, {{"budget_range", type text}, {"decade", Int64.Type}}),
+				    Rangos = Table.TransformColumns(Tipos, {{"budget_range", each if _ = null or Text.Trim(_) = "" then "Sin datos" else Text.Trim(_), type text}}),
+				    OrdenPresupuesto = Table.AddColumn(Rangos, "budget_range_order", each
+				        if [budget_range] = "Bajo" then 1
+				        else if [budget_range] = "Medio" then 2
+				        else if [budget_range] = "Alto" then 3
+				        else if [budget_range] = "Muy alto" then 4
+				        else 5, Int64.Type)
+				in
+				    OrdenPresupuesto
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Análisis de inversión cinematográfica"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "802407b7-eede-55d9-80e4-c0d2e72dee95"
+  }
+}

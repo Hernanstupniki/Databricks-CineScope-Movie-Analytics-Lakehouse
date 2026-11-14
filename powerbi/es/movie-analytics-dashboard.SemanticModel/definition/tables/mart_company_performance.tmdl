@@ -1,0 +1,168 @@
+table mart_company_performance
+	lineageTag: e8a8a1d7-3194-4423-8783-9412a7504ae9
+
+	measure 'Películas (productoras)' = DISTINCTCOUNTNOBLANK('mart_company_performance'[movie_id])
+		formatString: #,0
+		lineageTag: 4b2f6a12-1c2d-4bee-a2da-ee2328f4412c
+
+	/// Películas distintas con un indicador de éxito informado.
+	measure 'Películas válidas (productoras)' = CALCULATE([Películas (productoras)], KEEPFILTERS(NOT ISBLANK('mart_company_performance'[reached_2x])))
+		formatString: #,0
+		lineageTag: 7d188d00-c1fb-414e-8a3d-2dad883e8c06
+
+	/// Películas que alcanzaron 2x sobre películas con datos financieros válidos.
+	measure 'Tasa de éxito 2x (productoras)' = DIVIDE(COALESCE(CALCULATE([Películas (productoras)], KEEPFILTERS('mart_company_performance'[reached_2x] == 1)), 0), [Películas válidas (productoras)])
+		formatString: 0.0%
+		lineageTag: 2e733e47-6da4-43f6-b12f-3d70a070274e
+
+	/// Mediana del múltiplo calculado en Databricks, con una observación por película.
+	measure 'Múltiplo mediano (productoras)' =
+			VAR PeliculasConMultiplo =
+			    CALCULATETABLE(
+			        VALUES('mart_company_performance'[movie_id]),
+			        KEEPFILTERS(NOT ISBLANK('mart_company_performance'[movie_id])),
+			        KEEPFILTERS(NOT ISBLANK('mart_company_performance'[revenue_multiple]))
+			    )
+			RETURN
+			    MEDIANX(PeliculasConMultiplo, CALCULATE(MAX('mart_company_performance'[revenue_multiple])))
+		formatString: 0.0"x"
+		lineageTag: 6899e823-f954-4595-b1c0-d3361aff0749
+
+	/// Orden por tasa descendente y nombre ascendente para desempatar.
+	measure 'Posición entre productoras' =
+			VAR NombreActual = SELECTEDVALUE('mart_company_performance'[company_name])
+			VAR TasaActual = [Tasa de éxito 2x (productoras)]
+			VAR Elegibles =
+			    FILTER(
+			        ADDCOLUMNS(
+			            ALLSELECTED('mart_company_performance'[company_name]),
+			            "@Validas", [Películas válidas (productoras)],
+			            "@Tasa", [Tasa de éxito 2x (productoras)]
+			        ),
+			        NOT ISBLANK('mart_company_performance'[company_name]) && [@Validas] >= 20
+			    )
+			RETURN
+			    IF(
+			        NOT ISBLANK(NombreActual) && [Películas válidas (productoras)] >= 20,
+			        1 + COUNTROWS(
+			            FILTER(
+			                Elegibles,
+			                [@Tasa] > TasaActual
+			                    || ([@Tasa] = TasaActual && 'mart_company_performance'[company_name] < NombreActual)
+			            )
+			        ),
+			        11
+			    )
+		formatString: 0
+		lineageTag: 9ae36a72-129c-41a3-9e87-287ebeffa514
+
+	column company_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3c0ab77a-53fe-418a-9c80-102cf5e76eef
+		summarizeBy: sum
+		sourceColumn: company_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 743f2029-ce13-47b3-8b98-8505a818c222
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column movie_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 18e1d0c4-5324-4e88-8ec8-42facf47dc4d
+		summarizeBy: sum
+		sourceColumn: movie_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 52296be7-da22-4ec6-bfb3-e9eeeeca5bf8
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_release_date
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 16dd6f54-9cde-408d-ad48-d0b515f8e013
+		summarizeBy: sum
+		sourceColumn: year_release_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget
+		dataType: double
+		sourceProviderType: double
+		lineageTag: fc3d7152-bc1e-40f9-985a-ae359b161537
+		summarizeBy: sum
+		sourceColumn: budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 715181a5-187d-4273-ac07-5e16a0e01816
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column budget_range
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: de1fcf34-55e3-49b4-b750-4ad7ec1c231b
+		summarizeBy: none
+		sourceColumn: budget_range
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_multiple
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 989fceb0-42f7-435b-8de5-21804da51ebe
+		summarizeBy: sum
+		sourceColumn: revenue_multiple
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reached_2x
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c39b6cb1-15c3-44ce-b1b0-7c5ec05e7814
+		summarizeBy: sum
+		sourceColumn: reached_2x
+
+		annotation SummarizationSetBy = Automatic
+
+	partition mart_company_performance = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("<databricks-server-hostname>", "<sql-warehouse-http-path>", [Catalog = "", Database = ""]),
+				    databricks_ws_Database = Origen{[Name="databricks_ws",Kind="Database"]}[Data],
+				    gold_Schema = databricks_ws_Database{[Name="gold",Kind="Schema"]}[Data],
+				    mart_company_performance_View = gold_Schema{[Name="mart_company_performance",Kind="View"]}[Data]
+				in
+				    mart_company_performance_View

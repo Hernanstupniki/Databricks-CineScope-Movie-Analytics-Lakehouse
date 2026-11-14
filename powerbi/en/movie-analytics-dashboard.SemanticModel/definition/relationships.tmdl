@@ -1,0 +1,7 @@
+relationship 63dc14bd-c19a-4e72-b11c-d28a8ee91bc8
+	fromColumn: mart_genre_performance.movie_id
+	toColumn: mart_movie_performance.movie_id
+
+relationship 9c214cab-55e2-483c-99ba-c03a4d94a85d
+	fromColumn: mart_company_performance.movie_id
+	toColumn: mart_movie_performance.movie_id

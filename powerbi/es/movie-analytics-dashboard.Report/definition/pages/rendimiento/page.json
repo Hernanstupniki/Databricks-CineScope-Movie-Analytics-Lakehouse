@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "rendimiento",
+  "displayName": "Rendimiento y productoras",
+  "displayOption": "FitToPage",
+  "width": 1600,
+  "height": 1320,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#EEF3F7'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "dispersion_peliculas",
+      "target": "multiplo_presupuesto",
+      "type": "NoFilter"
+    },
+    {
+      "source": "dispersion_peliculas",
+      "target": "top_productoras",
+      "type": "NoFilter"
+    },
+    {
+      "source": "multiplo_presupuesto",
+      "target": "dispersion_peliculas",
+      "type": "NoFilter"
+    },
+    {
+      "source": "multiplo_presupuesto",
+      "target": "top_productoras",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top_productoras",
+      "target": "dispersion_peliculas",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top_productoras",
+      "target": "multiplo_presupuesto",
+      "type": "NoFilter"
+    },
+    {
+      "source": "anio_peliculas",
+      "target": "dispersion_peliculas",
+      "type": "DataFilter"
+    },
+    {
+      "source": "anio_peliculas",
+      "target": "multiplo_presupuesto",
+      "type": "DataFilter"
+    },
+    {
+      "source": "anio_peliculas",
+      "target": "top_productoras",
+      "type": "DataFilter"
+    },
+    {
+      "source": "rango_presupuesto",
+      "target": "dispersion_peliculas",
+      "type": "DataFilter"
+    },
+    {
+      "source": "rango_presupuesto",
+      "target": "multiplo_presupuesto",
+      "type": "DataFilter"
+    },
+    {
+      "source": "rango_presupuesto",
+      "target": "top_productoras",
+      "type": "DataFilter"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+table mart_genre_performance
+	lineageTag: 979f064d-b4c0-4d31-ae69-1ad8528de18f
+
+	measure 'Películas (géneros)' = DISTINCTCOUNTNOBLANK('mart_genre_performance'[movie_id])
+		formatString: #,0
+		lineageTag: bb5ad9bb-b3e6-408c-b824-fe1cd38c7769
+
+	/// Películas distintas con un indicador de éxito informado.
+	measure 'Películas válidas (géneros)' = CALCULATE([Películas (géneros)], KEEPFILTERS(NOT ISBLANK('mart_genre_performance'[reached_2x])))
+		formatString: #,0
+		lineageTag: 20a20d3a-f640-4a0c-9492-dc1a5f1f5609
+
+	/// Películas que alcanzaron 2x sobre películas con datos financieros válidos.
+	measure 'Tasa de éxito 2x (géneros)' = DIVIDE(COALESCE(CALCULATE([Películas (géneros)], KEEPFILTERS('mart_genre_performance'[reached_2x] == 1)), 0), [Películas válidas (géneros)])
+		formatString: 0.0%
+		lineageTag: b6adb82b-d1c5-4a51-9f8a-ffe1e52ead69
+
+	/// Mediana del múltiplo calculado en Databricks, con una observación por película.
+	measure 'Múltiplo mediano (géneros)' =
+			VAR PeliculasConMultiplo =
+			    CALCULATETABLE(
+			        VALUES('mart_genre_performance'[movie_id]),
+			        KEEPFILTERS(NOT ISBLANK('mart_genre_performance'[movie_id])),
+			        KEEPFILTERS(NOT ISBLANK('mart_genre_performance'[revenue_multiple]))
+			    )
+			RETURN
+			    MEDIANX(PeliculasConMultiplo, CALCULATE(MAX('mart_genre_performance'[revenue_multiple])))
+		formatString: 0.0"x"
+		lineageTag: 059c1ce5-b0eb-40c5-a851-ad89c35d779a
+
+	/// Muestra la tasa cuando la celda tiene al menos 20 películas válidas.
+	measure 'Tasa 2x de la muestra' = IF([Películas válidas (géneros)] >= 20, [Tasa de éxito 2x (géneros)])
+		formatString: 0.0%
+		lineageTag: 4dc355eb-a879-4c83-9bda-9f927f10c9b8
+
+	measure 'Color de tasa 2x' =
+			VAR Tasa = [Tasa 2x de la muestra]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(Tasa), "#F1F5F9",
+			        Tasa < 0.25, "#F0F9F8",
+			        Tasa < 0.50, "#D5EFEB",
+			        Tasa < 0.75, "#A9DFD7",
+			        "#79C9BD"
+			    )
+		isHidden
+		lineageTag: 155d4e5c-df65-449a-8fbd-03ecef05b3e8
+
+	column genre_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fbe9d4d4-667c-4598-8349-ea376236f74a
+		summarizeBy: sum
+		sourceColumn: genre_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column genre_name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 13e8d14a-03c6-4d2e-9376-f16ded0b7ed8
+		summarizeBy: none
+		sourceColumn: genre_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column movie_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 78a06856-0487-4d07-98e6-005fe4d9126c
+		summarizeBy: sum
+		sourceColumn: movie_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 611d4c82-220d-4a67-ae1c-5a2de21bac7a
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_release_date
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 85c6fe8e-10b7-4b75-ad0c-fcaebcfb2587
+		summarizeBy: sum
+		sourceColumn: year_release_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget
+		dataType: double
+		sourceProviderType: double
+		lineageTag: b355e889-4cea-4976-aca0-1190c743fa16
+		summarizeBy: sum
+		sourceColumn: budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 79e93f86-a063-4175-83c9-915df3ecd8f7
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column budget_range
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: fc1b7150-803a-4a68-922b-e15be5a60689
+		summarizeBy: none
+		sourceColumn: budget_range
+		sortByColumn: budget_range_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_multiple
+		dataType: double
+		sourceProviderType: double
+		lineageTag: c0b7ca77-d47f-4ccd-8fc2-390148ac3c84
+		summarizeBy: sum
+		sourceColumn: revenue_multiple
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reached_2x
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2e176c6d-c36d-42d1-8113-7ed1183a20df
+		summarizeBy: sum
+		sourceColumn: reached_2x
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget_range_order
+		dataType: int64
+		isHidden
+		lineageTag: 2443b303-c7dd-4e69-a27c-8371bfe7827b
+		summarizeBy: none
+		sourceColumn: budget_range_order
+
+	partition mart_genre_performance = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("<databricks-server-hostname>", "<sql-warehouse-http-path>", [Catalog = "", Database = ""]),
+				    databricks_ws_Database = Origen{[Name="databricks_ws",Kind="Database"]}[Data],
+				    gold_Schema = databricks_ws_Database{[Name="gold",Kind="Schema"]}[Data],
+				    mart_genre_performance_View = gold_Schema{[Name="mart_genre_performance",Kind="View"]}[Data],
+				    Tipos = Table.TransformColumnTypes(mart_genre_performance_View, {{"budget_range", type text}}),
+				    Rangos = Table.TransformColumns(Tipos, {{"budget_range", each let Tier = if _ = null then "" else Text.Trim(_) in if Tier = "Bajo" then "Low" else if Tier = "Medio" then "Medium" else if Tier = "Alto" then "High" else if Tier = "Muy alto" then "Very high" else if Tier = "" or Tier = "Sin datos" then "No data" else Tier, type text}}),
+				    OrdenPresupuesto = Table.AddColumn(Rangos, "budget_range_order", each
+				        if [budget_range] = "Low" then 1
+				        else if [budget_range] = "Medium" then 2
+				        else if [budget_range] = "High" then 3
+				        else if [budget_range] = "Very high" then 4
+				        else 5, Int64.Type)
+				in
+				    OrdenPresupuesto

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "CineScope — Movie Analytics Lakehouse (English)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8022f6fd-6719-4bf5-bdda-36ecb1ef20d0"
+  }
+}

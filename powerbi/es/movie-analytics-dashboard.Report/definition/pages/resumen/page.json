@@ -1,0 +1,136 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "resumen",
+  "displayName": "Resumen y evolución",
+  "displayOption": "FitToPage",
+  "width": 1600,
+  "height": 1000,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#EEF3F7'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "exito_2x",
+      "target": "peliculas_analizadas",
+      "type": "NoFilter"
+    },
+    {
+      "source": "exito_2x",
+      "target": "multiplo_mediano",
+      "type": "NoFilter"
+    },
+    {
+      "source": "exito_2x",
+      "target": "exito_decada",
+      "type": "NoFilter"
+    },
+    {
+      "source": "peliculas_analizadas",
+      "target": "exito_2x",
+      "type": "NoFilter"
+    },
+    {
+      "source": "peliculas_analizadas",
+      "target": "multiplo_mediano",
+      "type": "NoFilter"
+    },
+    {
+      "source": "peliculas_analizadas",
+      "target": "exito_decada",
+      "type": "NoFilter"
+    },
+    {
+      "source": "multiplo_mediano",
+      "target": "exito_2x",
+      "type": "NoFilter"
+    },
+    {
+      "source": "multiplo_mediano",
+      "target": "peliculas_analizadas",
+      "type": "NoFilter"
+    },
+    {
+      "source": "multiplo_mediano",
+      "target": "exito_decada",
+      "type": "NoFilter"
+    },
+    {
+      "source": "exito_decada",
+      "target": "exito_2x",
+      "type": "NoFilter"
+    },
+    {
+      "source": "exito_decada",
+      "target": "peliculas_analizadas",
+      "type": "NoFilter"
+    },
+    {
+      "source": "exito_decada",
+      "target": "multiplo_mediano",
+      "type": "NoFilter"
+    },
+    {
+      "source": "anio_estreno",
+      "target": "exito_2x",
+      "type": "DataFilter"
+    },
+    {
+      "source": "anio_estreno",
+      "target": "peliculas_analizadas",
+      "type": "DataFilter"
+    },
+    {
+      "source": "anio_estreno",
+      "target": "multiplo_mediano",
+      "type": "DataFilter"
+    },
+    {
+      "source": "anio_estreno",
+      "target": "exito_decada",
+      "type": "DataFilter"
+    },
+    {
+      "source": "rango_presupuesto",
+      "target": "exito_2x",
+      "type": "DataFilter"
+    },
+    {
+      "source": "rango_presupuesto",
+      "target": "peliculas_analizadas",
+      "type": "DataFilter"
+    },
+    {
+      "source": "rango_presupuesto",
+      "target": "multiplo_mediano",
+      "type": "DataFilter"
+    },
+    {
+      "source": "rango_presupuesto",
+      "target": "exito_decada",
+      "type": "DataFilter"
+    }
+  ]
+}
