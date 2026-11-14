@@ -15,7 +15,7 @@ The project follows the full data path from date-batched CSV and JSON files in *
 | Valid film–production-company associations | **13,468** |
 | Eligible films grossing at least 2× their production budget | **37.1%** |
 | Median gross-to-budget multiple | **1.30×** |
-| Gold bridges passing duplicate and orphan checks | **5 of 5** |
+| Gold bridges passing duplicate and orphan checks | **2 of 2** |
 
 Dashboard metrics reflect the unfiltered snapshot. The 2× rate considers films with positive budget and gross revenue. Estimating producer profit also requires distribution splits, marketing, and other costs.
 
@@ -31,13 +31,13 @@ Each run processes one `file_date` batch. The layers update incrementally, so ea
 | --- | --- |
 | Bronze | `replaceWhere` replaces only the `file_date` slice being loaded |
 | Silver | Delta `MERGE` inserts new records and updates existing ones |
-| Gold warehouse | Delta `MERGE` on the fact table, the film, person, and production company dimensions, and all five bridges. Small catalog dimensions are rebuilt |
+| Gold warehouse | Delta `MERGE` on the fact table, the film and production company dimensions, and both bridges. Genre and time dimensions are rebuilt |
 | SQL data marts | Views over Gold, with no physical load |
 | Power BI | Refresh reloads the imported model |
 
 - **Bronze** — Twelve loaders read the batch selected by the `file_date` widget. They write external Delta tables with the batch date and use `replaceWhere` to replace that slice on reruns.
 - **Silver** — PySpark casts and standardizes fields and adds ingestion metadata. Delta `MERGE` uses entity or association keys to update existing records and insert new ones.
-- **Gold** — The warehouse builds `fact_movies` at film grain, eight dimensions, and five bridges for cast, genre, language, production company, and production country. The annual `dim_time` supplies the release decade.
+- **Gold** — The warehouse builds `fact_movies` at film grain, four dimensions (film, time, genre, and production company), and two bridges (film–genre and film–production company). The annual `dim_time` supplies the release decade.
 
 Three independent SQL views expose the warehouse at the grain each analysis needs.
 
@@ -50,7 +50,7 @@ Three independent SQL views expose the warehouse at the grain each analysis need
 ## Engineering decisions
 
 - **Batch date as an explicit processing boundary.** Notebook runners pass `file_date` to their child notebooks. Bronze can replace one slice, while Silver merges that slice into consolidated tables.
-- **Referential integrity at the warehouse boundary.** The [validation notebook](data_quality/validate_data.ipynb) recorded 225 film–genre rows in Silver with no matching film. The [genre bridge](gold/data_warehouse/bridges/bridge_movie_genres.ipynb) joins associations to Gold dimensions before merging. The quality notebook fails when any of the five Gold bridges contains duplicate keys or references missing a film or dimension record.
+- **Referential integrity at the warehouse boundary.** The [validation notebook](data_quality/validate_data.ipynb) recorded 225 film–genre rows in Silver with no matching film. The [genre bridge](gold/data_warehouse/bridges/bridge_movie_genres.ipynb) joins associations to Gold dimensions before merging. The quality notebook fails when either Gold bridge contains duplicate keys or references missing a film or dimension record.
 - **Metrics at the right grain.** A film can belong to multiple genres and production companies. Portfolio KPIs come from the film mart. The genre and company views supply their own analyses, with one-way relationships from the film table so that both shared filters reach all three marts.
 - **Import mode for interactive analysis.** Power Query loads the three Databricks views and DAX aggregates the imported metrics. Users can explore the report using the local imported model between refreshes.
 
