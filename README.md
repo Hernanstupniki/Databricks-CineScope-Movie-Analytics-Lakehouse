@@ -56,6 +56,8 @@ Three independent SQL views expose the warehouse at the grain each analysis need
 
 ## Power BI dashboard
 
+**Ready to open, data included** · [English PBIX](powerbi/en/movie-analytics-dashboard.pbix) · [Spanish PBIX](powerbi/es/movie-analytics-dashboard.pbix)
+
 **Editable projects** · [English PBIP](powerbi/en/movie-analytics-dashboard.pbip) · [Spanish PBIP](powerbi/es/movie-analytics-dashboard.pbip)
 
 CineScope helps a production company decide which projects move on to financial evaluation, how much capital to expose, and which partners to approach. A team with a medium budget, for example, can start from the track record of Horror, look up comparable films, and build scenarios before approving the spend.
@@ -117,11 +119,15 @@ The loaders expect `movie.csv`, `language.csv`, `genre.csv`, `country.json`, `pe
 
 ### Power BI Desktop
 
+To explore the dashboard right away, download the `.pbix` for your language and open it in Power BI Desktop. It contains the imported data, so the charts and filters work without a Databricks connection.
+
+To rebuild the report from the editable project against your own workspace:
+
 1. Clone or download the repository. Keep the `.pbip`, `.Report`, and `.SemanticModel` items together in the chosen language folder.
 2. Replace the server hostname and SQL Warehouse HTTP path placeholders in the three `Databricks.Catalogs` calls under that project's `.SemanticModel/definition/tables/`.
 3. Open the `.pbip` in Power BI Desktop, authenticate to Databricks, select **Refresh**, and save to persist the imported data locally.
 
-Git contains the editable report and model definitions. The local Import cache and machine-specific settings are excluded. The screenshots let you review the dashboard without a SQL Warehouse.
+The `.pbip` projects contain the editable report and model definitions. Their local Import cache and machine-specific settings are excluded from Git.
 
 ## Repository layout
 
@@ -132,6 +138,6 @@ Git contains the editable report and model definitions. The local Import cache a
 | [`gold/data_marts/financial/`](gold/data_marts/financial/) | Three independent reporting views |
 | [`data_quality/`](data_quality/) | Duplicate and referential-integrity checks |
 | [`includes/`](includes/) and [`schemas/`](schemas/) | Shared notebook configuration and schema setup |
-| [`powerbi/`](powerbi/) | English and Spanish editable Power BI projects |
+| [`powerbi/`](powerbi/) | English and Spanish Power BI reports, as ready-to-open `.pbix` files and editable `.pbip` projects |
 | [`docs/architecture/`](docs/architecture/) | Architecture diagram in draw.io, SVG, and PNG formats |
 | [`docs/images/`](docs/images/) | Power BI screenshots in [English](docs/images/en/) and [Spanish](docs/images/es/) |
