@@ -374,6 +374,26 @@
             }
           }
         }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Budget, gross revenue, title and individual multiple by film'"
+                }
+              }
+            }
+          }
+        }
       ]
     }
   }

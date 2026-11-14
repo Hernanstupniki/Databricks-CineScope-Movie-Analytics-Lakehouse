@@ -265,6 +265,26 @@
             }
           }
         }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Median gross multiple, films and eligible films by budget tier'"
+                }
+              }
+            }
+          }
+        }
       ]
     }
   }

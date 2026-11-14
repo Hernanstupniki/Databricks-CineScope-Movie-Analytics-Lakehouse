@@ -21,19 +21,19 @@ Dashboard metrics reflect the unfiltered snapshot. The 2× rate considers films 
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    A["ADLS Gen2<br/>Dated CSV and JSON batches"]
-    B["Bronze<br/>External Delta tables"]
-    S["Silver<br/>Typed and normalized Delta tables"]
-    G["Gold warehouse<br/>Facts, dimensions and bridges"]
-    Q["Data quality<br/>Duplicate and orphan checks"]
-    M["Gold SQL marts<br/>Film, genre and company"]
-    P["Power BI Import<br/>Power Query and DAX"]
-    A --> B --> S --> G --> M --> P
-    S -.-> Q
-    G -.-> Q
-```
+![CineScope architecture: date-batched files in ADLS Gen2 flow through Bronze, Silver, and Gold in Azure Databricks to SQL data marts and Power BI, with data quality checks](docs/architecture/cinescope-architecture.svg)
+
+Solid arrows show batch data flow and dotted arrows show validation checks. Editable source: [draw.io file](docs/architecture/cinescope-architecture.drawio) · [PNG export](docs/architecture/cinescope-architecture.png)
+
+Each run processes one `file_date` batch. The layers update incrementally, so earlier batches stay in place.
+
+| Layer | Update pattern |
+| --- | --- |
+| Bronze | `replaceWhere` replaces only the `file_date` slice being loaded |
+| Silver | Delta `MERGE` inserts new records and updates existing ones |
+| Gold warehouse | Delta `MERGE` on the fact table, the film, person, and production company dimensions, and all five bridges. Small catalog dimensions are rebuilt |
+| SQL data marts | Views over Gold, with no physical load |
+| Power BI | Refresh reloads the imported model |
 
 - **Bronze** — Twelve loaders read the batch selected by the `file_date` widget. They write external Delta tables with the batch date and use `replaceWhere` to replace that slice on reruns.
 - **Silver** — PySpark casts and standardizes fields and adds ingestion metadata. Delta `MERGE` uses entity or association keys to update existing records and insert new ones.
@@ -58,7 +58,7 @@ Three independent SQL views expose the warehouse at the grain each analysis need
 
 **Editable projects** · [English PBIP](powerbi/en/movie-analytics-dashboard.pbip) · [Spanish PBIP](powerbi/es/movie-analytics-dashboard.pbip)
 
-The report has three pages and seven charts. The release-year interval and budget tier are synchronized across all pages. The screenshots show the Spanish edition with the full period selected.
+The report has three pages and seven charts. The release-year interval and budget tier are synchronized across all pages. The screenshots show the English edition with the full period selected.
 
 ### Overview and trends
 
@@ -117,4 +117,5 @@ Git contains the editable report and model definitions. The local Import cache a
 | [`data_quality/`](data_quality/) | Duplicate and referential-integrity checks |
 | [`includes/`](includes/) and [`schemas/`](schemas/) | Shared notebook configuration and schema setup |
 | [`powerbi/`](powerbi/) | English and Spanish editable Power BI projects |
+| [`docs/architecture/`](docs/architecture/) | Architecture diagram in draw.io, SVG, and PNG formats |
 | [`docs/images/`](docs/images/) | Power BI screenshots |
