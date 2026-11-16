@@ -4,7 +4,7 @@ CineScope turns historical film data into a decision tool for production compani
 
 The project follows the full data path from date-batched CSV and JSON files in **Azure Data Lake Storage Gen2** to a **Power BI** dashboard. The lakehouse uses **Azure Databricks, PySpark, SQL, Delta Lake, and Unity Catalog**. Power BI uses **Power Query and DAX**, with editable project definitions versioned alongside the notebooks in **Git and GitHub**.
 
-[Dashboard](#power-bi-dashboard) · [Architecture](#architecture) · [Setup](#configuration-and-execution)
+[Dashboard](#power-bi-dashboard) · [Architecture](#architecture) · [Data lineage](#data-lineage) · [Setup](#configuration-and-execution)
 
 ## Results at a glance
 
@@ -46,6 +46,14 @@ Three independent SQL views expose the warehouse at the grain each analysis need
 | `mart_movie_performance` | One row per film | Portfolio KPIs, budget tiers, release decades, and film-level comparisons |
 | `mart_genre_performance` | One row per film–genre pair | Genre rankings and genre-by-budget analysis |
 | `mart_company_performance` | One row per film–company pair | Production company track records |
+
+## Data lineage
+
+[![CineScope data lineage: five source files traced through Bronze, Silver, and Gold tables into the three SQL data marts and Power BI, with the validate_data checks on Silver and Gold](docs/lineage/cinescope-data-lineage.png)](docs/lineage/cinescope-data-lineage.en.html)
+
+The architecture diagram shows the platform. This one shows the data: table-level, upstream lineage of the three data marts, from the 5 of 12 sources they are computed from to the Power BI model. Every box states how that table is loaded (`replaceWhere`, Delta `MERGE`, overwrite, or rebuild), and `validate_data` points at the layers it checks.
+
+It is an interactive page. Click a source file to see every table and mart it reaches, or click a mart to see every file it depends on, which answers impact questions such as "what breaks if `movie_genre.json` arrives late?". Download the file and open it in a browser: [English](docs/lineage/cinescope-data-lineage.en.html) · [Spanish](docs/lineage/cinescope-data-lineage.es.html)
 
 ## Engineering decisions
 
@@ -140,4 +148,5 @@ The `.pbip` projects contain the editable report and model definitions. Their lo
 | [`includes/`](includes/) and [`schemas/`](schemas/) | Shared notebook configuration and schema setup |
 | [`powerbi/`](powerbi/) | English and Spanish Power BI reports, as ready-to-open `.pbix` files and editable `.pbip` projects |
 | [`docs/architecture/`](docs/architecture/) | Architecture diagram in draw.io, SVG, and PNG formats |
+| [`docs/lineage/`](docs/lineage/) | Interactive table-level data lineage in English and Spanish, with a PNG preview |
 | [`docs/images/`](docs/images/) | Power BI screenshots in [English](docs/images/en/) and [Spanish](docs/images/es/) |
